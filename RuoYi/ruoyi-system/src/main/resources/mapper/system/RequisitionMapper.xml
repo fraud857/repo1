@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.RequisitionMapper">
+    
+    <resultMap type="Requisition" id="RequisitionResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="type"    column="type"    />
+        <result property="unitPrice"    column="unit_price"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="totalPrice"    column="total_price"    />
+        <result property="time"    column="time"    />
+        <result property="purchasePersons"    column="purchase_persons"    />
+        <result property="departments"    column="departments"    />
+        <result property="entryPersons"    column="entry_persons"    />
+    </resultMap>
+
+
+    <select id="selectRequisitionList" parameterType="Requisition" resultMap="RequisitionResult">
+        select *from requisition
+        <where>  
+            <if test="name != null "> and name = #{name}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="quantity != null  "> and quantity = #{quantity}</if>
+            <if test="totalPrice != null "> and total_price = #{totalPrice}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="purchasePersons != null "> and purchase_persons = #{purchasePersons}</if>
+            <if test="departments != null "> and departments = #{departments}</if>
+            <if test="entryPersons != null "> and entry_persons = #{entryPersons}</if>
+        </where>
+    </select>
+    
+    <select id="selectRequisitionById" parameterType="Long" resultMap="RequisitionResult">
+       select *from requisition
+        where id = #{id}
+    </select>
+        
+    <insert id="insertRequisition" parameterType="Requisition" useGeneratedKeys="true" keyProperty="id">
+        insert into requisition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="type != null">type,</if>
+            <if test="unitPrice != null">unit_price,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="totalPrice != null">total_price,</if>
+            <if test="time != null">time,</if>
+            <if test="purchasePersons != null">purchase_persons,</if>
+            <if test="departments != null">departments,</if>
+            <if test="entryPersons != null">entry_persons,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="unitPrice != null">#{unitPrice},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="time != null">#{time},</if>
+            <if test="purchasePersons != null">#{purchasePersons},</if>
+            <if test="departments != null">#{departments},</if>
+            <if test="entryPersons != null">#{entryPersons},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRequisition" parameterType="Requisition">
+        update requisition
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="unitPrice != null">unit_price = #{unitPrice},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="totalPrice != null">total_price = #{totalPrice},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="purchasePersons != null">purchase_persons = #{purchasePersons},</if>
+            <if test="departments != null">departments = #{departments},</if>
+            <if test="entryPersons != null">entry_persons = #{entryPersons},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRequisitionById" parameterType="Long">
+        delete from requisition where id = #{id}
+    </delete>
+
+
+</mapper>
